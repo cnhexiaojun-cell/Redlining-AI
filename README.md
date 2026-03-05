@@ -49,7 +49,7 @@
 1. **克隆仓库**
 
    ```bash
-   git clone https://github.com/yourusername/Redlining-AI.git
+   git clone https://github.com/cnhexiaojun-cell/Redlining-AI.git
    cd Redlining-AI
    ```
 2. **安装依赖**
