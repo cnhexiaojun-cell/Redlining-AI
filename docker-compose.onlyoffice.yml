@@ -1,0 +1,29 @@
+# OnlyOffice Document Server for online Word/PPT viewing and editing.
+# Start: docker compose -f docker-compose.onlyoffice.yml up -d
+# Stop:  docker compose -f docker-compose.onlyoffice.yml down
+#
+# Backend must be reachable from this container for document.url (Document Server fetches the file).
+# Backend app.onlyoffice.api-base-url should be http://host.docker.internal:8003 (default).
+#
+# OnlyOffice 7.4+ blocks fetching document from private IPs (e.g. host.docker.internal).
+# After "up -d", wait ~90s then run: ./scripts/onlyoffice-enable-preview.sh
+# (patches allowPrivateIPAddress and restarts docservice)
+
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    container_name: redlining-onlyoffice
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:80"
+    environment:
+      JWT_ENABLED: "false"
+    volumes:
+      - onlyoffice_data:/var/www/onlyoffice/Data
+      - onlyoffice_logs:/var/log/onlyoffice
+
+volumes:
+  onlyoffice_data:
+  onlyoffice_logs:

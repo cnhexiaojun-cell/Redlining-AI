@@ -1,0 +1,69 @@
+server:
+  port: ${SERVER_PORT:8003}
+
+spring:
+  application:
+    name: redlining-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/redlining?useUnicode=true&characterEncoding=utf8}
+    username: ${DATABASE_USERNAME:redlining}
+    password: ${DATABASE_PASSWORD:redlining}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-in-production}
+    expiration-minutes: ${JWT_EXPIRE_MINUTES:60}
+  llm:
+    provider: ${LLM_PROVIDER:deepseek}
+    deepseek-api-key: ${DEEPSEEK_API_KEY:}
+    deepseek-base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+    zhipu-api-key: ${ZHIPU_API_KEY:}
+    zhipu-base-url: ${ZHIPU_BASE_URL:https://open.bigmodel.cn/api/paas/v4}
+    zhipu-model-name: ${ZHIPU_MODEL_NAME:glm-4-flash}
+    modelscope-api-key: ${MODELSCOPE_API_KEY:your_api_key_here}
+    modelscope-base-url: ${MODELSCOPE_BASE_URL:https://api-inference.modelscope.cn/v1}
+    model-name: ${MODEL_NAME:deepseek-chat}
+  file:
+    max-size: 10485760
+    allowed-extensions: .pdf,.docx,.txt
+  cache:
+    analysis-ttl-seconds: ${CACHE_ANALYSIS_TTL:3600}
+  minio:
+    endpoint: ${MINIO_ENDPOINT:http://127.0.0.1:9000}
+    access-key: ${MINIO_ACCESS_KEY:minioadmin}
+    secret-key: ${MINIO_SECRET_KEY:minioadmin}
+    bucket: ${MINIO_BUCKET:avatars}
+    documents-bucket: ${MINIO_DOCUMENTS_BUCKET:documents}
+    avatar:
+      max-size: 5242880
+      allowed-content-types: image/jpeg,image/png
+  # 在线文档与合同预览（OnlyOffice）：先执行 docker compose -f docker-compose.onlyoffice.yml up -d
+  # api-base-url：OnlyOffice 容器拉取文档用的后端地址，容器内需用 host.docker.internal 访问宿主机
+  onlyoffice:
+    document-server-url: ${ONLYOFFICE_DOCUMENT_SERVER_URL:http://127.0.0.1:8080}
+    api-base-url: ${ONLYOFFICE_API_BASE_URL:http://host.docker.internal:8003}
+    jwt-secret: ${ONLYOFFICE_JWT_SECRET:}
+    jwt-enabled: ${ONLYOFFICE_JWT_ENABLED:false}
+  # 微信支付 Native 扫码：商户私钥须为 apiclient_key.pem 的完整 PEM 内容（-----BEGIN PRIVATE KEY-----...），
+  # 或写 file:/绝对或相对路径/apiclient_key.pem。勿将 APIv3 密钥填到 merchant-private-key。
+  wechatpay:
+    app-id: ${WECHAT_APP_ID:}
+    mch-id: ${WECHAT_MCH_ID:}
+    api-v3-key: ${WECHAT_API_V3_KEY:}
+    merchant-private-key: ${WECHAT_MERCHANT_PRIVATE_KEY:}
+    merchant-serial-no: ${WECHAT_MERCHANT_SERIAL_NO:}
+    notify-url: ${WECHAT_NOTIFY_URL:}
