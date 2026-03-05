@@ -1,9 +1,8 @@
 # Redlining AI
-<img width="150" height="150" alt="image" src="https://github.com/wjl110/Redlining/blob/main/image/Redlining.png" />
+基于https://github.com/wjl110/Redlining-AI 项目实现的，增加了后端服务、大模型接入、onlyoffice集成
 
 **Redlining AI** 是一款现代化的 Web 应用程序，专为智能合同审查和风险分析而设计。它通过模拟 AI 驱动的扫描过程并提供可操作的建议，帮助法律专业人士和企业快速识别合同中的潜在风险。
 
-<img width="480" height="720" alt="image" src="https://github.com/wjl110/Redlining-AI/blob/master/src/assets/Redlining%20Chrome.gif" />
 ## 🚀 功能特性
 
 - **智能文档上传**:
